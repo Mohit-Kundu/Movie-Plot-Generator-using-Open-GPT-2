@@ -6,15 +6,15 @@ column_name = "Plot"
 no_of_rows = 200
 
 def format_text(text):
-    '''Formats text by removing citations and also unicode and newline characters'''
+    '''Formats text by removing citations and also unicode & newline characters'''
     citations = r'\[[0-9]*\]'
     regex1 = r'\''
-    regex2 = r'\n'
-    regex3 = r'\r'
-    #text = re.sub(r'\[[0-9]*\]', ' ', text) Removes the citations and square brackets
-    text = re.sub(regex1, "'", text)
-    text = re.sub("|".join([citations, regex2, regex3]) , "", text)
-    text = text.encode("ascii","ignore").decode('UTF-8') #Removing unicode characters & converting bytes to string
+    regex2 = r'\n' #line feed
+    regex3 = r'\r' #carriage return
+
+    text = re.sub(regex1, "'", text) #replaces \'s with 's
+    text = re.sub("|".join([citations, regex2, regex3]) , "", text) #removes regex patterns from text
+    text = text.encode("ascii","ignore").decode('UTF-8') #removes unicode characters & converting bytes to string
     text = "<BOL>" + str(text) + "<EOL>\n\n"
     return text
 
